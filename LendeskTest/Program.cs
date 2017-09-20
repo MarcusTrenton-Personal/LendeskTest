@@ -18,6 +18,9 @@ namespace LendeskTest
             Console.WriteLine("\n------Problem 2-----\n");
             Problem2("<a><b><c><d><e><f></f></e></d></c></b></a>");
 
+            Console.WriteLine("\n------Problem 3-----\n");
+            Problem3();
+
             //Hack to keep the console program open for viewing after the logic has finished.
             Console.WriteLine("\nPress any key to exit.");
             Console.ReadKey();
@@ -55,11 +58,33 @@ namespace LendeskTest
                 writer.Formatting = Formatting.Indented;
                 doc.WriteTo(writer);
                 writer.Flush();
+                Console.WriteLine();
             }
             catch (XmlException exception)
             {
                 Console.Error.WriteLine(exception);
             }
+        }
+
+        static void Problem3()
+        {
+            //The \n are only for pretty printing. They will need to be removed for an actual query.
+
+            //TODO: Come back and test this using http://sqlfiddle.com/
+            Console.WriteLine(  "SQL:\n\n" +
+                                "SELECT Dogs.name, bones = COUNT(Bones.rating), average_bone_rating = AVG(Bones.rating) \n" + 
+                                "FROM Dogs \n" +
+                                "LEFT JOIN Bones \n" +
+                                "ON Dogs.id = Bones.dog_id \n" +
+                                "GROUP BY Dogs.id");
+
+            Console.WriteLine();
+
+            //TODO: Make a Ruby project to do actual active record.
+            Console.WriteLine(  "ActiveRecord:\n\n" +
+                                "Dogs.left_joins(:Bones)\n" +
+                                ".select(\"Dogs.name, COUNT(Bones.rating) as bones, AVG(Bones.rating) as average_bone_rating) \n" +     
+                                ".group(\"Dogs.id\")");
         }
     }
 }
