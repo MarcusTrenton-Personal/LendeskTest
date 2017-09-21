@@ -14,7 +14,7 @@ namespace LendeskTest.Shapes
         {
             if(radius < 0)
             {
-                throw new ArgumentException("Parameter cannot be negative", "radius");
+                throw new ArgumentOutOfRangeException("Parameter cannot be negative", "radius");
             }
             this.radius = radius;
         }

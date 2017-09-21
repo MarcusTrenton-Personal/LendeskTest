@@ -15,11 +15,11 @@ namespace LendeskTest.Shapes
         {
             if (sideLength < 0)
             {
-                throw new ArgumentException("Parameter cannot be negative", "sideLength");
+                throw new ArgumentOutOfRangeException("Parameter cannot be negative", "sideLength");
             }
             if (sideCount < 3)
             {
-                throw new ArgumentException("Parameter must be at least 3", "sideCount");
+                throw new ArgumentOutOfRangeException("Parameter must be at least 3", "sideCount");
             }
 
             this.sideLength = sideLength;
