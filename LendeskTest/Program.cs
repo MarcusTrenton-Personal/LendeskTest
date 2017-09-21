@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.IO;
 
 namespace LendeskTest
 {
@@ -16,10 +17,13 @@ namespace LendeskTest
             Problem1<int>(elements: oneToSix);
 
             Console.WriteLine("\n------Problem 2-----\n");
-            Problem2("<a><b><c><d><e><f></f></e></d></c></b></a>");
+            Problem2(xml: "<a><b><c><d><e><f></f></e></d></c></b></a>");
 
             Console.WriteLine("\n------Problem 3-----\n");
             Problem3();
+
+            Console.WriteLine("\n------Problem 4-----\n");
+            Problem4(fileName: "shapes.csv");
 
             //Hack to keep the console program open for viewing after the logic has finished.
             Console.WriteLine("\nPress any key to exit.");
@@ -85,6 +89,26 @@ namespace LendeskTest
                                 "Dogs.left_joins(:Bones)\n" +
                                 ".select(\"Dogs.name, COUNT(Bones.rating) as bones, AVG(Bones.rating) as average_bone_rating) \n" +     
                                 ".group(\"Dogs.id\")");
+        }
+
+        static void Problem4(string fileName)
+        {
+            try
+            {
+                string currentDirectory = Directory.GetCurrentDirectory();
+                string path = Path.Combine(currentDirectory, "../../" + fileName);
+
+                ShapePrinter printer = new ShapePrinter(filePath: path);
+                printer.Print(Console.Out);
+            }
+            catch(FileNotFoundException exception)
+            {
+                Console.Error.WriteLine(exception);
+            }
+            catch (ArgumentException exception)
+            {
+                Console.Error.WriteLine(exception);
+            }
         }
     }
 }
